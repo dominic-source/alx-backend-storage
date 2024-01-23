@@ -1,2 +1,2 @@
 // Insert a collection to the database
-db.school.insertOne({"name": "Holberton school"})
+db.school.insert({"name": "Holberton school"})

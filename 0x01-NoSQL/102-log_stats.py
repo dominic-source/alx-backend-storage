@@ -58,10 +58,10 @@ def display():
     print(f"{stat} status check")
 
     # display top 10 ips
-    print("ips:")
+    print("IPs:")
     newdata = list(newdata)
     for dat in range(min(10, len(newdata))):
-        print(f'\t{newdata[dat].get("ip")}: {newdata[dat].get("count_me")}')
+        print(f'\t{newdata[dat]["ip"]}: {newdata[dat]["count_me"]}')
 
 
 if __name__ == '__main__':

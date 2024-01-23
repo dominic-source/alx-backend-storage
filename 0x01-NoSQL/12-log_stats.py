@@ -28,10 +28,10 @@ def display_stats():
         values.append(data)
 
     stat = collection.find({"path": "/status"}).count()
-
+    print(f'{collection.count()} logs')
     print("Methods:")
     for idx, cond in enumerate(conditions):
-        print(f'\tmethod {cond}: {values[idx]}')
+        print(f'    method {cond}: {values[idx]}')
 
     print(f"{stat} status check")
 

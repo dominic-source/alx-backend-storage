@@ -2,6 +2,7 @@
 """This module contains a function that update a document in a collection
 """
 from pymongo import MongoClient
+import pymongo
 
 
 def display_stats():
@@ -43,7 +44,7 @@ def display_stats():
       },
       {
           "$sort": {
-              "count_me": -1,
+              "count_me": pymongo.DESCENDING,
           }
       }
     ])

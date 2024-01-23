@@ -7,8 +7,8 @@ from pymongo import MongoClient
 
 def list_all(mongo_collection) -> List:
     """list all collection of a database"""
-
-    if value := mongo_collection.find():
+    value = mongo_collection.find()
+    if value:
         return value
     return []
 

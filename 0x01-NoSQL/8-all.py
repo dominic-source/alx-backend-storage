@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """This module contains a function that list all document in a collection
 """
+
 from typing import List
 from pymongo import MongoClient
 

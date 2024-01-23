@@ -60,8 +60,8 @@ def display_stats():
     # display top 10 ips
     print("IPs:")
     newdata = list(newdata)
-    for dat in range(10):
-        print(f'\t{newdata[dat].get("ip")}: {newdata[dat].get("count_me")}')
+    for dat in range(min(10, len(newdata))):
+        print(f'    {newdata[dat].get("ip")}: {newdata[dat].get("count_me")}')
 
 
 if __name__ == '__main__':

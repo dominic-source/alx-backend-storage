@@ -2,7 +2,6 @@
 """This module contains a function that update a document in a collection
 """
 from pymongo import MongoClient
-import pprint
 
 
 def display_stats():
@@ -31,7 +30,7 @@ def display_stats():
     print(f'{collection.count()} logs')
     print("Methods:")
     for idx, cond in enumerate(conditions):
-        print(f'    method {cond}: {values[idx]}')
+        print(f'\tmethod {cond}: {values[idx]}')
 
     print(f"{stat} status check")
 

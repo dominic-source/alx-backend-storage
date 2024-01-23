@@ -5,7 +5,7 @@ from pymongo import MongoClient
 import pymongo
 
 
-def display_stats():
+def display():
     """update a document into a collection"""
     client = MongoClient()
     collection = client.logs.nginx
@@ -61,8 +61,8 @@ def display_stats():
     print("IPs:")
     newdata = list(newdata)
     for dat in range(min(10, len(newdata))):
-        print(f'    {newdata[dat].get("ip")}: {newdata[dat].get("count_me")}')
+        print(f'\t{newdata[dat].get("ip")}: {newdata[dat].get("count_me")}')
 
 
 if __name__ == '__main__':
-    display_stats()
+    display()

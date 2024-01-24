@@ -4,18 +4,19 @@
 """
 import redis
 import uuid
+from typing import Union
 
 
 class Cache:
     """The cache class for the application"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Init method for the class"""
 
         self._redis = redis.Redis()
         self._redis.flushdb()
 
-    def store(self, data: any) -> str:
+    def store(self, data: Union[str, bytes, int, float]) -> str:
         """Take a data argument and return a string"""
 
         key = str(uuid.uuid4())

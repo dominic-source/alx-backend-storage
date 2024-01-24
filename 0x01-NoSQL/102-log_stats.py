@@ -50,7 +50,7 @@ def display():
     ])
 
     stat = len(list(collection.find({"path": "/status"})))
-    print(f'{collection.count()} logs')
+    print(f'{len(list(collection.find()))} logs')
     print("Methods:")
     for idx, cond in enumerate(conditions):
         print(f'\tmethod {cond}: {values[idx]}')

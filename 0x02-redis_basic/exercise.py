@@ -16,7 +16,7 @@ def count_calls(Callable):
         """decorator for a class"""
 
         key = Callable.__qualname__
-        self._redis.incrby(key, 1)
+        self._redis.incr(key)
         return Callable(self, *args, **kwargs)
     return func
 

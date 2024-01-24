@@ -5,6 +5,20 @@
 import redis
 import uuid
 from typing import Union, Callable
+from functools import wraps
+
+
+def count_calls(Callable):
+    """a decorator function for cache"""
+
+    @wraps(Callable)
+    def func(self, *args, **kwargs):
+        """decorator for a class"""
+
+        key = Callable.__qualname__
+        self._redis.incr(key)
+        return Callable(self, *args, **kwargs)
+    return func
 
 
 class Cache:
@@ -16,6 +30,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """Take a data argument and return a string"""
 
@@ -38,7 +53,7 @@ class Cache:
 
         return self.get(key, str)
 
-    def get_int(self, key: int) -> int:
+    def get_int(self, key: str) -> int:
         """return the int data"""
 
         return self.get(key, int)

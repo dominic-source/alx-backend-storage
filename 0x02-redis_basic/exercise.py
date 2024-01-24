@@ -4,7 +4,7 @@
 """
 import redis
 import uuid
-from typing import Union
+from typing import Union, Callable
 from functools import wraps
 
 
@@ -38,7 +38,7 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn=None):
+    def get(self, key: str, fn: Callable = None):
         """"REturn the original value"""
 
         data = self._redis.get(key)

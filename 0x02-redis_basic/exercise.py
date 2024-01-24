@@ -38,7 +38,7 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn):
+    def get(self, key: str, fn=None):
         """"REturn the original value"""
 
         data = self._redis.get(key)

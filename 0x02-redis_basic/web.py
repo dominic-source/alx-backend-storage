@@ -14,10 +14,9 @@ def track_url(func: Callable) -> Callable:
     def track(*args, **kwargs):
         """Track url now"""
         r = redis.Redis(db=5)
-        hash_c = "count_url"
         key = f"count:{args[0]}"
-        r.hincrby(hash_c, key, 1)
-        r.expire(hash_c, 10)
+        r.incr(key)
+        r.expire(key, 10)
         result = func(*args, **kwargs)
         return result
     return track
@@ -33,11 +32,10 @@ def get_page(url: str) -> str:
 if __name__ == '__main__':
 
     r = redis.Redis(db=5)
-    get_page('http://slowwly.robertomurray.co.uk')
     get_page('https://google.com')
     get_page('https://google.com')
-    print(r.hgetall("count_url"))
-    time.sleep(15)
-    get_page('http://slowwly.robertomurray.co.uk')
-    get_page('http://slowwly.robertomurray.co.uk')
-    print(r.hgetall("count_url"))
+    get_page('https://google.com')
+    print(r.get("count:https://google.com"))
+    time.sleep(11)
+    get_page('https://google.com')
+    print(r.get("count:https://google.com"))

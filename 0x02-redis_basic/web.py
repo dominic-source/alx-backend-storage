@@ -11,11 +11,11 @@ import time
 def track_url(func: Callable) -> Callable:
     """Track url of a web app"""
 
-    def track(*args, **kwargs):
+    def track(*args, **kwargs) -> str:
         """Track url now"""
         r = redis.Redis(db=5)
         key = f"count:{args[0]}"
-        r.incr(key)
+        r.incrby(key, 1)
         r.expire(key, 10)
         result = func(*args, **kwargs)
         return result
@@ -27,15 +27,3 @@ def get_page(url: str) -> str:
     """get a page from a website"""
     resp = requests.get(url)
     return resp.text
-
-
-if __name__ == '__main__':
-
-    r = redis.Redis(db=5)
-    get_page('https://google.com')
-    get_page('https://google.com')
-    get_page('https://google.com')
-    print(r.get("count:https://google.com"))
-    time.sleep(11)
-    get_page('https://google.com')
-    print(r.get("count:https://google.com"))

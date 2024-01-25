@@ -8,7 +8,7 @@ from typing import Union, Callable
 from functools import wraps
 
 
-def count_calls(method):
+def count_calls(method: Callable) -> Callable:
     """a decorator function for cache"""
 
     @wraps(method)

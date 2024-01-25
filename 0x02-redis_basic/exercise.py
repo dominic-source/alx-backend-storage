@@ -37,6 +37,21 @@ def call_history(method: Callable) -> Callable:
     return func
 
 
+def replay(name):
+    """Replay previous call history"""
+
+    r = redis.Redis()
+    key_inputs = name.__qualname__ + ":inputs"
+    key_outputs = name.__qualname__ + ":outputs"
+
+    inp = r.lrange(key_inputs, 0, -1)
+    out = r.lrange(key_outputs, 0, -1)
+    print(f'Cache.store was called {len(inp)} times')
+    for i in zip(inp, out):
+        print(f'Cache.store(*{i[0].
+              decode("utf-8")}) -> {i[1].decode("utf-8")}')
+
+
 class Cache:
     """The cache class for the application"""
 

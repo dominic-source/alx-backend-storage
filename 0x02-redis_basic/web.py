@@ -14,7 +14,7 @@ def track_url(func: Callable) -> Callable:
     def track(*args, **kwargs) -> str:
         """Track url now"""
         r = redis.Redis(db=5)
-        key = f"count:{args[0]}"
+        key = f"count:{{args[0]}}"
         r.incrby(key, 1)
         r.expire(key, 10)
         result = func(*args, **kwargs)

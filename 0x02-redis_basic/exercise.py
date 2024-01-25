@@ -48,8 +48,8 @@ def replay(name):
     out = r.lrange(key_outputs, 0, -1)
     print(f'Cache.store was called {len(inp)} times')
     for i in zip(inp, out):
-        print(f'Cache.store(*{i[0].
-              decode("utf-8")}) -> {i[1].decode("utf-8")}')
+        print(f'Cache.store(*{i[0].decode("utf-8")}) ' +
+              f'-> {i[1].decode("utf-8")}')
 
 
 class Cache:

@@ -8,16 +8,16 @@ from typing import Union, Callable
 from functools import wraps
 
 
-def count_calls(Callable):
+def count_calls(method):
     """a decorator function for cache"""
 
-    @wraps(Callable)
+    @wraps(method)
     def func(self, *args, **kwargs):
         """decorator for a class"""
 
-        key = Callable.__qualname__
+        key = method.__qualname__
         self._redis.incr(key)
-        return Callable(self, *args, **kwargs)
+        return method(self, *args, **kwargs)
     return func
 
 

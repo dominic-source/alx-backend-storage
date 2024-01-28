@@ -15,9 +15,9 @@ def track_url(func: Callable) -> Callable:
         """Track url now"""
         key = f"count:{args[0]}"
         result = func(args[0])
-
         r = redis.Redis()
         r.incr(key)
+        r.setex(args[0], 10, 'cached_data')
         r.expire(key, 10)
         return result
     return track

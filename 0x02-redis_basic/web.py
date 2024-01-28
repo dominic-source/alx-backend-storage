@@ -11,13 +11,14 @@ import time
 def track_url(func: Callable) -> Callable:
     """Track url of a web app"""
 
-    def track(*args, **kwargs) -> str:
+    def track(*args: str, **kwargs) -> str:
         """Track url now"""
-        r = redis.Redis(db=5)
-        key = f"count:{args}"
-        r.incrby(key, 1)
+        key = f"count:{args[0]}"
+        result = func(args[0])
+
+        r = redis.Redis()
+        r.incr(key)
         r.expire(key, 10)
-        result = func(*args, **kwargs)
         return result
     return track
 
@@ -27,3 +28,14 @@ def get_page(url: str) -> str:
     """get a page from a website"""
     resp = requests.get(url)
     return resp.text
+
+
+if __name__ == '__main__':
+    r = redis.Redis()
+    get_page('http://slowwly.robertomurray.co.uk')
+    get_page('http://slowwly.robertomurray.co.uk')
+    get_page('http://slowwly.robertomurray.co.uk')
+    print(r.get('count:http://slowwly.robertomurray.co.uk'))
+    time.sleep(12)
+    get_page('http://slowwly.robertomurray.co.uk')
+    print(r.get('count:http://slowwly.robertomurray.co.uk'))

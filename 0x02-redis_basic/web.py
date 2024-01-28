@@ -11,9 +11,9 @@ import time
 def track_url(func: Callable) -> Callable:
     """Track url of a web app"""
 
-    def track(*args: str, **kwargs) -> str:
+    def track(*args: str, **kwargs: str) -> str:
         """Track url now"""
-        key = f"count:{args[0]}"
+        key: str = f"count:{args[0]}"
         result = func(args[0])
         r = redis.Redis()
         r.incr(key)
@@ -27,7 +27,7 @@ def track_url(func: Callable) -> Callable:
 def get_page(url: str) -> str:
     """get a page from a website"""
     resp = requests.get(url)
-    return resp.text
+    return str(resp.text)
 
 
 if __name__ == '__main__':
